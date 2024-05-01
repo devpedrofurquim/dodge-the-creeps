@@ -41,3 +41,9 @@ func _on_body_entered(body):
 	hide() #Player disapears after being hit
 	hit.emit()
 	$CollisionShape2D.set_deferred("disabled", true)
+	
+func start(pos):
+	position = pos
+	show()
+	$CollisionShape2D.disabled = false
+	
