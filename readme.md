@@ -4,6 +4,6 @@ Simple 2D game developed with the Godot Engine by Pedro Furquim. The game is ful
 
 ### Stuff I want to add
 
-[] - Coins (Collectables) that add += 2 to the score.
-[] - New skins for the player (colors and a hat)
-[] - Record system for the score (Greates one yet)
+- [] Coins (Collectables) that add += 2 to the score.
+- [] New skins for the player (colors and a hat)
+- [] Record system for the score (Greates one yet)
