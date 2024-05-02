@@ -1,6 +1,8 @@
 extends Node
 
 @export var mob_scene: PackedScene
+@export var gold_fish_scene: PackedScene
+
 var score
 
 # Called when the node enters the scene tree for the first time.
@@ -9,13 +11,14 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
 
 func game_over():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
+	$GoldFishTimer.stop()
 	$HUD.show_game_over()
 	$Music.stop()
 	$DeathSound.play()
@@ -27,16 +30,17 @@ func new_game():
 	$HUD.update_score(score)
 	$HUD.show_message("Prepare-se")
 	get_tree().call_group("mobs", "queue_free")
+	get_tree().call_group("gold_fish", "queue_free")
 	$Music.play()
 
-
 func _on_score_timer_timeout():
-	score += 2
+	score += 1
 	$HUD.update_score(score)
 
 func _on_start_timer_timeout():
 	$MobTimer.start()
 	$ScoreTimer.start()
+	$GoldFishTimer.start()
 
 func _on_mob_timer_timeout():
 	# Create a new instace of the mob scene
@@ -62,5 +66,23 @@ func _on_mob_timer_timeout():
 	
 	# Spawn the mob by adding it to the Main scene
 	add_child(mob)
+
+
+func _on_gold_fish_timer_timeout():
+	# Create a new instace of the gold fish
+	var gold_fish = gold_fish_scene.instantiate()
 	
+	# Choose a random location on Path2D
+	var gold_fish_spawn_location = $GoldFishPath/GoldFishSpawnLocation
+	gold_fish_spawn_location.progress_ratio = randf()
 	
+	# Set the gold fish position to a random location
+	gold_fish.position = gold_fish_spawn_location.position
+	
+	# Spawn the mob by adding it to the Main scene
+	add_child(gold_fish)
+
+
+func _on_player_collect():
+	score += 2
+	$HUD.update_score(score)

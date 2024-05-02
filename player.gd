@@ -1,5 +1,7 @@
 extends Area2D
+
 signal hit
+signal collect
 
 @export var speed = 400 # how fast the player will move (pixel/sec)
 var screen_size
@@ -42,8 +44,19 @@ func _on_body_entered(body):
 	hit.emit()
 	$CollisionShape2D.set_deferred("disabled", true)
 	
+
 func start(pos):
 	position = pos
 	show()
 	$CollisionShape2D.disabled = false
 	
+	
+func _on_area_entered(area):
+	if area.is_in_group("gold_fish"):
+		area.queue_free()
+		collect.emit()
+
+
+
+func _on_collect():
+	pass # Replace with function body.

@@ -6,9 +6,9 @@ func _ready():
 	$AnimatedSprite2D.play(mob_types[randi() % mob_types.size()])
 
 
-func _process(delta):
+func _process(_delta):
 	pass
 
-# Deletes the mob instance when they leave the scren
+# Deletes the mob instance when they leave the screen
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()

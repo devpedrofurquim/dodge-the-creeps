@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://3vbv3456b3o8"]
+
+[ext_resource type="Texture2D" uid="uid://bf12dp0dljnds" path="res://art/goldFish_idle1.png" id="1_41h3d"]
+[ext_resource type="Script" path="res://gold_fish.gd" id="1_p1wy8"]
+[ext_resource type="Texture2D" uid="uid://caw2bxdjh8pmd" path="res://art/goldFish_idle2.png" id="2_61qlx"]
+[ext_resource type="Texture2D" uid="uid://cprbufx8ee5t2" path="res://art/goldFish_idle3.png" id="3_lcttd"]
+[ext_resource type="Texture2D" uid="uid://clcp3byyulq0x" path="res://art/goldFish_idle4.png" id="4_hg82h"]
+[ext_resource type="Texture2D" uid="uid://nehimf73w6cf" path="res://art/goldFish_idle5.png" id="5_8qtpq"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wcq6x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_41h3d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_61qlx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_lcttd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_hg82h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8qtpq")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8wymi"]
+radius = 40.0
+
+[node name="gold_fish" type="Area2D" groups=["gold_fish"]]
+position = Vector2(112, 224)
+scale = Vector2(0.45, 0.45)
+collision_mask = 0
+script = ExtResource("1_p1wy8")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wcq6x")
+animation = &"idle"
+frame_progress = 0.941494
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8wymi")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(-9.53674e-07, 2.86102e-06)
+scale = Vector2(3.55556, 3.55556)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]
